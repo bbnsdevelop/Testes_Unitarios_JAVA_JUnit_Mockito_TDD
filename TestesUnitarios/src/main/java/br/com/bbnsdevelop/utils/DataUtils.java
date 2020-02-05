@@ -85,6 +85,12 @@ public class DataUtils {
 		return calendar.get(DAY_OF_WEEK) == diaSemana;
 	}
 	
+	/**
+	 * Formata data para DD/MM/YYYY
+	 * 
+	 * @param data
+	 * @return String
+	 */
 	public static String formatDateToDDMMYYY(Date date) {
 		 DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	     String dateFormated = formatter.format(date);
