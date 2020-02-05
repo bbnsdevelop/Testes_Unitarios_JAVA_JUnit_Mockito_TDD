@@ -1,13 +1,13 @@
-package br.ce.wcaquino.servicos;
+package br.com.bbnsdevelop.servicos;
 
-import static br.ce.wcaquino.utils.DataUtils.adicionarDias;
-import static br.ce.wcaquino.utils.DataUtils.formatDateToDDMMYYY;
+import static br.com.bbnsdevelop.utils.DataUtils.adicionarDias;
+import static br.com.bbnsdevelop.utils.DataUtils.formatDateToDDMMYYY;
 
 import java.util.Date;
 
-import br.ce.wcaquino.entidades.Filme;
-import br.ce.wcaquino.entidades.Locacao;
-import br.ce.wcaquino.entidades.Usuario;
+import br.com.bbnsdevelop.entidades.Filme;
+import br.com.bbnsdevelop.entidades.Locacao;
+import br.com.bbnsdevelop.entidades.Usuario;
 
 public class LocacaoService {
 	
