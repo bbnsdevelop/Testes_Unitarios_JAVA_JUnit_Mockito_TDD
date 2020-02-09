@@ -4,7 +4,6 @@ import static br.com.bbnsdevelop.utils.DataUtils.formatDateToDDMMYYY;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.Rule;
 import org.junit.Test;
