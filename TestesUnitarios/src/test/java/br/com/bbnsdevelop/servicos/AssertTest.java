@@ -38,14 +38,27 @@ public class AssertTest {
 		assertTrue("bola".equalsIgnoreCase("Bola"));
 		assertTrue("bola".startsWith("bo"));
 		
+		
+	}
+	
+	@Test
+	public void testIgualdadeDeValores() {
+		
 		Usuario u1 = new Usuario("teste 1");
 		Usuario u2 = new Usuario("teste 1");
-		Usuario u3 = u2;
 		
 		// essa comparação só é possível devido ao metodo equals sobrescrito na classe Usuario
 		assertEquals(u1, u2);
+
+	}
+	
+	@Test
+	public void testMesmaInstancia() {
+		Usuario u2 = new Usuario("teste 1");
+		Usuario u3 = u2;
 		
 		assertSame(u3, u2);
+		
 	}
 	
 	
