@@ -6,4 +6,4 @@
 	Obter métricas de qualidade a partir dos testes (Percentual de aceitação e cobertura de código)     
 	Criar builders de objetos para centralizar a criação de entidades     
 	Adicionar testes unitários em projetos legados, sem a necessidade de refatoração (Caso não seja possível)    
-	Que um código legível é melhor que um código documentado
+	Que um código legível é melhor que um código documentado.
