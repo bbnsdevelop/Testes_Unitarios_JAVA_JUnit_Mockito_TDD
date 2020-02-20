@@ -2,11 +2,11 @@ package br.com.bbnsdevelop.servicos;
 
 import static br.com.bbnsdevelop.utils.DataUtils.formatDateToDDMMYYY;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.is;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -16,6 +16,8 @@ import org.junit.rules.ExpectedException;
 import br.com.bbnsdevelop.entidades.Filme;
 import br.com.bbnsdevelop.entidades.Locacao;
 import br.com.bbnsdevelop.entidades.Usuario;
+import br.com.bbnsdevelop.exceptions.FilmeSemEstoqueException;
+import br.com.bbnsdevelop.exceptions.LocadoraException;
 
 public class LocacaoServiceTest {
 
@@ -42,7 +44,19 @@ public class LocacaoServiceTest {
 		
 	}
 	
-	@Test(expected = Exception.class)
+	
+	
+	@Test(expected = LocadoraException.class)
+	public void UsuarioNulo() throws Exception{
+		mockLocacaoUsuarioNulo();		
+	}
+	
+	@Test(expected = LocadoraException.class)
+	public void locacaoFilmeNulo() throws Exception{
+		mockLocacaoFilmeNulo();		
+	}
+	
+	@Test(expected = FilmeSemEstoqueException.class)
 	public void locacaoSemFilme() throws Exception{
 		mockLocacaoFilmeSemEstoque(0);		
 	}
@@ -60,9 +74,27 @@ public class LocacaoServiceTest {
 	}
 	
 	@Test
+	public void testUsuarioNuloV3() throws Exception{
+		// tem que ser verificada antes da execução do cenário, para não falhar
+		ex.expect(LocadoraException.class);
+		ex.expectMessage("Usuário não pode ser vazio");
+		mockLocacaoUsuarioNulo();
+		
+	}
+	
+	@Test
+	public void testFilmeNuloV3() throws Exception{
+		// tem que ser verificada antes da execução do cenário, para não falhar
+		ex.expect(LocadoraException.class);
+		ex.expectMessage("Filme não pode ser vazio");
+		mockLocacaoFilmeNulo();
+		
+	}
+	
+	@Test
 	public void locacaoSemFilmeV3() throws Exception{
 		// tem que ser verificada antes da execução do cenário, para não falhar
-		ex.expect(Exception.class);
+		ex.expect(FilmeSemEstoqueException.class);
 		ex.expectMessage("filme sem estoque");
 
 		mockLocacaoFilmeSemEstoque(0);
@@ -109,6 +141,26 @@ public class LocacaoServiceTest {
 		
 		Usuario usuario = new Usuario("Bruno"); 
 		Filme filme = new Filme("A fulga das galinhas", estoque, 5.7);
+		
+		return locacaoService.alugarFilme(usuario,filme);
+		
+	}
+	
+	private Locacao mockLocacaoUsuarioNulo() throws Exception{
+		LocacaoService locacaoService = new LocacaoService();
+		
+		Usuario usuario = null; 
+		Filme filme = new Filme("A fulga das galinhas", 1, 5.7);
+		
+		return locacaoService.alugarFilme(usuario,filme);
+		
+	}
+	
+	private Locacao mockLocacaoFilmeNulo() throws Exception{
+		LocacaoService locacaoService = new LocacaoService();
+		
+		Usuario usuario = new Usuario("Bruno"); 
+		Filme filme = null;
 		
 		return locacaoService.alugarFilme(usuario,filme);
 		

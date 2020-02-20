@@ -7,13 +7,23 @@ import java.util.Date;
 import br.com.bbnsdevelop.entidades.Filme;
 import br.com.bbnsdevelop.entidades.Locacao;
 import br.com.bbnsdevelop.entidades.Usuario;
+import br.com.bbnsdevelop.exceptions.FilmeSemEstoqueException;
+import br.com.bbnsdevelop.exceptions.LocadoraException;
 
 public class LocacaoService {
 	
-	public Locacao alugarFilme(Usuario usuario, Filme filme) throws Exception {
+	public Locacao alugarFilme(Usuario usuario, Filme filme) throws LocadoraException, FilmeSemEstoqueException {
+		
+		if(usuario == null) {
+			throw new LocadoraException("Usuário não pode ser vazio");
+		}
+		
+		if(filme == null) {
+			throw new LocadoraException("Filme não pode ser vazio");
+		}
 		
 		if(filme.getEstoque() == 0) {
-			throw new Exception("filme sem estoque");
+			throw new FilmeSemEstoqueException("filme sem estoque");
 		}
 		Locacao locacao = new Locacao();
 		locacao.setFilme(filme);
