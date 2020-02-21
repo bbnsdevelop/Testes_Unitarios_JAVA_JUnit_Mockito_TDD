@@ -8,6 +8,10 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
@@ -22,11 +26,39 @@ import br.com.bbnsdevelop.exceptions.LocadoraException;
 public class LocacaoServiceTest {
 
 	
+	private static LocacaoService locacaoService;
+	
 	@Rule
 	public ErrorCollector error = new ErrorCollector();
 	
 	@Rule
 	public ExpectedException ex = ExpectedException.none();
+	
+	/*
+	 * Execução antes de cada caso de teste
+	 * 
+	@Before
+	public void setup() {
+		this.locacaoService = new LocacaoService();
+	}
+	@After
+	public void tearDown() {
+		System.out.println("After");
+	}*/
+	
+	
+	/*Com a anotação instancia a classe antes dos medotos serem executados é preciso colocá-los estaticos de modo que o junit possa utilizálo
+	 * Do contário irá obter erro de inicialização
+	 * */
+	@BeforeClass
+	public static void setup() {
+		locacaoService = new LocacaoService();
+	}
+	@AfterClass
+	public static void tearDown() {
+		System.out.println("After");		
+		locacaoService = null;
+	}
 	
 	@Test
 	public void testeLocacao() throws Exception{
@@ -127,7 +159,6 @@ public class LocacaoServiceTest {
 	}
 	
 	private Locacao mockLocacao() throws Exception{
-		LocacaoService locacaoService = new LocacaoService();
 		
 		Usuario usuario = new Usuario("Bruno"); 
 		Filme filme = new Filme("A fulga das galinhas", 1, 5.7);
@@ -137,7 +168,6 @@ public class LocacaoServiceTest {
 	}
 	
 	private Locacao mockLocacaoFilmeSemEstoque(Integer estoque) throws Exception{
-		LocacaoService locacaoService = new LocacaoService();
 		
 		Usuario usuario = new Usuario("Bruno"); 
 		Filme filme = new Filme("A fulga das galinhas", estoque, 5.7);
@@ -147,7 +177,6 @@ public class LocacaoServiceTest {
 	}
 	
 	private Locacao mockLocacaoUsuarioNulo() throws Exception{
-		LocacaoService locacaoService = new LocacaoService();
 		
 		Usuario usuario = null; 
 		Filme filme = new Filme("A fulga das galinhas", 1, 5.7);
@@ -157,7 +186,6 @@ public class LocacaoServiceTest {
 	}
 	
 	private Locacao mockLocacaoFilmeNulo() throws Exception{
-		LocacaoService locacaoService = new LocacaoService();
 		
 		Usuario usuario = new Usuario("Bruno"); 
 		Filme filme = null;
