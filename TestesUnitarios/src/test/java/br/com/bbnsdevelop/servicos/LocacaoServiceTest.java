@@ -8,9 +8,11 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import org.junit.After;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -56,7 +58,6 @@ public class LocacaoServiceTest {
 	}
 	@AfterClass
 	public static void tearDown() {
-		System.out.println("After");		
 		locacaoService = null;
 	}
 	
@@ -88,19 +89,19 @@ public class LocacaoServiceTest {
 		mockLocacaoFilmeNulo();		
 	}
 	
-	@Test(expected = FilmeSemEstoqueException.class)
+	@Test(expected = RuntimeException.class)
 	public void locacaoSemFilme() throws Exception{
 		mockLocacaoFilmeSemEstoque(0);		
 	}
 	
 	
 	@Test
-	public void locacaoSemFilmeV2() {
+	public void locacaoSemFilmeV2() throws Exception {
 		try {
 			mockLocacaoFilmeSemEstoque(0);
 			fail("Falhou por não lançar exceção");
-		} catch (Exception e) {
-			assertThat(e.getMessage(), is(equalTo("filme sem estoque")));
+		} catch (RuntimeException e) {
+			assertThat(e.getMessage(), is(equalTo("br.com.bbnsdevelop.exceptions.FilmeSemEstoqueException: filme sem estoque")));
 		}
 		
 	}
@@ -126,7 +127,7 @@ public class LocacaoServiceTest {
 	@Test
 	public void locacaoSemFilmeV3() throws Exception{
 		// tem que ser verificada antes da execução do cenário, para não falhar
-		ex.expect(FilmeSemEstoqueException.class);
+		ex.expect(RuntimeException.class);
 		ex.expectMessage("filme sem estoque");
 
 		mockLocacaoFilmeSemEstoque(0);
@@ -162,8 +163,10 @@ public class LocacaoServiceTest {
 		
 		Usuario usuario = new Usuario("Bruno"); 
 		Filme filme = new Filme("A fulga das galinhas", 1, 5.7);
+		Filme filme2 = new Filme("A fulga das galinhas", 1, 5.7);
+		List<Filme> filmes = Arrays.asList(filme, filme2);
 		
-		return locacaoService.alugarFilme(usuario,filme);
+		return locacaoService.alugarFilme(usuario,filmes);
 		
 	}
 	
@@ -171,8 +174,9 @@ public class LocacaoServiceTest {
 		
 		Usuario usuario = new Usuario("Bruno"); 
 		Filme filme = new Filme("A fulga das galinhas", estoque, 5.7);
+		List<Filme> filmes = Arrays.asList(filme);
 		
-		return locacaoService.alugarFilme(usuario,filme);
+		return locacaoService.alugarFilme(usuario,filmes);
 		
 	}
 	
@@ -180,17 +184,17 @@ public class LocacaoServiceTest {
 		
 		Usuario usuario = null; 
 		Filme filme = new Filme("A fulga das galinhas", 1, 5.7);
+		List<Filme> filmes = Arrays.asList(filme);
 		
-		return locacaoService.alugarFilme(usuario,filme);
+		return locacaoService.alugarFilme(usuario,filmes);
 		
 	}
 	
 	private Locacao mockLocacaoFilmeNulo() throws Exception{
-		
 		Usuario usuario = new Usuario("Bruno"); 
-		Filme filme = null;
+		List<Filme> filmes =new ArrayList<Filme>();
 		
-		return locacaoService.alugarFilme(usuario,filme);
+		return locacaoService.alugarFilme(usuario,filmes);
 		
 	}
 }

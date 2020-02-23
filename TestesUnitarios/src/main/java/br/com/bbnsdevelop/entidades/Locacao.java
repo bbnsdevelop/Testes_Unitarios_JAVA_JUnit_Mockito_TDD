@@ -1,11 +1,18 @@
 package br.com.bbnsdevelop.entidades;
 
 import java.util.Date;
+import java.util.List;
 
 public class Locacao {
 
 	private Usuario usuario;
-	private Filme filme;
+	private List<Filme> filme;
+	public List<Filme> getFilme() {
+		return filme;
+	}
+	public void setFilme(List<Filme> filme) {
+		this.filme = filme;
+	}
 	private Date dataLocacao;
 	private Date dataRetorno;
 	private Double valor;
@@ -33,11 +40,5 @@ public class Locacao {
 	}
 	public void setValor(Double valor) {
 		this.valor = valor;
-	}
-	public Filme getFilme() {
-		return filme;
-	}
-	public void setFilme(Filme filme) {
-		this.filme = filme;
 	}
 }
