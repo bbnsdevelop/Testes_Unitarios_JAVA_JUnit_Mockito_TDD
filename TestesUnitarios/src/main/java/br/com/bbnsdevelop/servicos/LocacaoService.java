@@ -17,15 +17,15 @@ public class LocacaoService {
 	public Locacao alugarFilme(Usuario usuario, List<Filme> filmes) throws LocadoraException, FilmeSemEstoqueException {
 		
 		if(usuario == null) {
-			throw new LocadoraException("Usu·rio n„o pode ser vazio");
+			throw new LocadoraException("Usu√°rio n√£o pode ser vazio");
 		}
 		
 		if(filmes == null || filmes.isEmpty() || filmes.size() == 0) {
-			throw new LocadoraException("Filme n„o pode ser vazio");
+			throw new LocadoraException("Filme n√£o pode ser vazio");
 		}
 		
 		if(filmes.isEmpty()) {
-			throw new LocadoraException("Filme n„o podem ser vazios");
+			throw new LocadoraException("Filme n√£o podem ser vazios");
 		}
 		List<Filme> FilmeLocacoes = new ArrayList<>();
 		

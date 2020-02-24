@@ -37,7 +37,7 @@ public class LocacaoServiceTest {
 	public ExpectedException ex = ExpectedException.none();
 	
 	/*
-	 * ExecuÁ„o antes de cada caso de teste
+	 * Execu√ß√£o antes de cada caso de teste
 	 * 
 	@Before
 	public void setup() {
@@ -49,8 +49,8 @@ public class LocacaoServiceTest {
 	}*/
 	
 	
-	/*Com a anotaÁ„o instancia a classe antes dos medotos serem executados È preciso coloc·-los estaticos de modo que o junit possa utiliz·lo
-	 * Do cont·rio ir· obter erro de inicializaÁ„o
+	/*Com a anota√ß√£o instancia a classe antes dos medotos serem executados √© preciso coloc√°-los estaticos de modo que o junit possa utiliz√°-lo
+	 * Do cont√°rio ir√° obter erro de inicializa√ß√£o
 	 * */
 	@BeforeClass
 	public static void setup() {
@@ -99,7 +99,7 @@ public class LocacaoServiceTest {
 	public void locacaoSemFilmeV2() throws Exception {
 		try {
 			mockLocacaoFilmeSemEstoque(0);
-			fail("Falhou por n„o lanÁar exceÁ„o");
+			fail("Falhou por n√£o lan√ßar exce√ß√£o");
 		} catch (RuntimeException e) {
 			assertThat(e.getMessage(), is(equalTo("br.com.bbnsdevelop.exceptions.FilmeSemEstoqueException: filme sem estoque")));
 		}
@@ -108,25 +108,25 @@ public class LocacaoServiceTest {
 	
 	@Test
 	public void testUsuarioNuloV3() throws Exception{
-		// tem que ser verificada antes da execuÁ„o do cen·rio, para n„o falhar
+		// tem que ser verificada antes da execu√ß√£o do cen√°rio, para n√£o falhar
 		ex.expect(LocadoraException.class);
-		ex.expectMessage("Usu·rio n„o pode ser vazio");
+		ex.expectMessage("Usu√°rio n√£o pode ser vazio");
 		mockLocacaoUsuarioNulo();
 		
 	}
 	
 	@Test
 	public void testFilmeNuloV3() throws Exception{
-		// tem que ser verificada antes da execuÁ„o do cen·rio, para n„o falhar
+		// tem que ser verificada antes da execu√ß√£o do cen√°rio, para n√£o falhar
 		ex.expect(LocadoraException.class);
-		ex.expectMessage("Filme n„o pode ser vazio");
+		ex.expectMessage("Filme n√£o pode ser vazio");
 		mockLocacaoFilmeNulo();
 		
 	}
 	
 	@Test
 	public void locacaoSemFilmeV3() throws Exception{
-		// tem que ser verificada antes da execuÁ„o do cen·rio, para n„o falhar
+		// tem que ser verificada antes da execuao do cen√°rio, para n√£o falhar
 		ex.expect(RuntimeException.class);
 		ex.expectMessage("filme sem estoque");
 
