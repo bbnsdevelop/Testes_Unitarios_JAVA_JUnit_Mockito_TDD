@@ -29,28 +29,37 @@ public class LocacaoService {
 		}
 		List<Filme> FilmeLocacoes = new ArrayList<>();
 
-		for(int i = 0; i < filmes.size(); i ++){
+		for (int i = 0; i < filmes.size(); i++) {
 			try {
 				if (filmes.get(i).getEstoque() == 0) {
 					throw new FilmeSemEstoqueException("filme sem estoque");
 				}
-				if (i == 2) {
-					filmes.get(i).setPrecoLocacao((filmes.get(i).getPrecoLocacao() - filmes.get(i).getPrecoLocacao() * 25 / 100));
-				} else if (i == 3) {
-					filmes.get(i).setPrecoLocacao((filmes.get(i).getPrecoLocacao() - filmes.get(i).getPrecoLocacao() * 50 / 100));
-				} else if (i == 4) {
-					filmes.get(i).setPrecoLocacao((filmes.get(i).getPrecoLocacao() - filmes.get(i).getPrecoLocacao() * 75 / 100));
-				} else if (i == 5) {
-					filmes.get(i).setPrecoLocacao((filmes.get(i).getPrecoLocacao() - filmes.get(i).getPrecoLocacao() * 100 / 100));
-				}
 
+				switch (i) {
+				case 2:
+					filmes.get(i).setPrecoLocacao(
+							(filmes.get(i).getPrecoLocacao() - filmes.get(i).getPrecoLocacao() * 25 / 100));
+					break;
+				case 3:
+					filmes.get(i).setPrecoLocacao(
+							(filmes.get(i).getPrecoLocacao() - filmes.get(i).getPrecoLocacao() * 50 / 100));
+					break;
+				case 4:
+					filmes.get(i).setPrecoLocacao(
+							(filmes.get(i).getPrecoLocacao() - filmes.get(i).getPrecoLocacao() * 75 / 100));
+					break;
+				case 5:
+					filmes.get(i).setPrecoLocacao(
+							(filmes.get(i).getPrecoLocacao() - filmes.get(i).getPrecoLocacao() * 100 / 100));
+					break;
+				}
 				FilmeLocacoes.add(filmes.get(i));
 			} catch (FilmeSemEstoqueException e) {
 				throw new RuntimeException(e);
 
 			}
 		}
-		
+
 		Locacao locacao = new Locacao();
 		locacao.setUsuario(usuario);
 		locacao.setDataLocacao(new Date());
