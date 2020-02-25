@@ -10,9 +10,12 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.AfterClass;
+import org.junit.Assume;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -23,6 +26,7 @@ import br.com.bbnsdevelop.entidades.Filme;
 import br.com.bbnsdevelop.entidades.Locacao;
 import br.com.bbnsdevelop.entidades.Usuario;
 import br.com.bbnsdevelop.exceptions.LocadoraException;
+import br.com.bbnsdevelop.utils.DataUtils;
 
 public class LocacaoServiceTest {
 
@@ -56,6 +60,16 @@ public class LocacaoServiceTest {
 	public static void tearDown() {
 		locacaoService = null;
 	}
+	
+	
+	
+	@Test
+	public void testNaoDeveDevolverFilmesDomingo() throws Exception {
+		Assume.assumeTrue(DataUtils.verificarDiaSemana(new Date(), Calendar.SATURDAY));
+		Locacao locacao = mockLocacao();
+		Boolean isSegunda = DataUtils.verificarDiaSemana(locacao.getDataRetorno(), Calendar.MONDAY);
+		assertTrue(isSegunda);		
+	}
 
 	@Test
 	public void testeLocacao() throws Exception {
@@ -74,7 +88,6 @@ public class LocacaoServiceTest {
 
 	}
 
-	// 3 unidades desconto de 25%
 	@Test
 	public void descontoAluguelFilmeTresUnidades() throws Exception {
 		Filme filme = new Filme("A fulga das galinhas", 1, 5.7);

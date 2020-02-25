@@ -3,6 +3,7 @@ package br.com.bbnsdevelop.servicos;
 import static br.com.bbnsdevelop.utils.DataUtils.adicionarDias;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import br.com.bbnsdevelop.entidades.Locacao;
 import br.com.bbnsdevelop.entidades.Usuario;
 import br.com.bbnsdevelop.exceptions.FilmeSemEstoqueException;
 import br.com.bbnsdevelop.exceptions.LocadoraException;
+import br.com.bbnsdevelop.utils.DataUtils;
 
 public class LocacaoService {
 
@@ -63,9 +65,12 @@ public class LocacaoService {
 		Locacao locacao = new Locacao();
 		locacao.setUsuario(usuario);
 		locacao.setDataLocacao(new Date());
-		Date dataEntrega = new Date();
+		Date dataEntrega = new Date();		
 		// Entrega no dia seguinte
 		dataEntrega = adicionarDias(dataEntrega, 1);
+		if(DataUtils.verificarDiaSemana(dataEntrega, Calendar.SUNDAY)) {
+			dataEntrega = adicionarDias(dataEntrega, 1);
+		}
 		locacao.setDataRetorno(dataEntrega);
 		locacao.setFilme(FilmeLocacoes);
 		locacao.setValor(filmes.stream().mapToDouble(f -> f.getPrecoLocacao()).sum());
