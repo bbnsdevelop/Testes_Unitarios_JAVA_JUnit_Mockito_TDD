@@ -1,5 +1,7 @@
 package br.com.bbnsdevelop.servicos;
 
+import static br.com.bbnsdevelop.matchers.MatchersPropios.caiEm;
+import static br.com.bbnsdevelop.matchers.MatchersPropios.caiNaSegunda;
 import static br.com.bbnsdevelop.utils.DataUtils.formatDateToDDMMYYY;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -26,6 +28,7 @@ import br.com.bbnsdevelop.entidades.Filme;
 import br.com.bbnsdevelop.entidades.Locacao;
 import br.com.bbnsdevelop.entidades.Usuario;
 import br.com.bbnsdevelop.exceptions.LocadoraException;
+import br.com.bbnsdevelop.matchers.MatchersPropios;
 import br.com.bbnsdevelop.utils.DataUtils;
 
 public class LocacaoServiceTest {
@@ -61,6 +64,16 @@ public class LocacaoServiceTest {
 		locacaoService = null;
 	}
 	
+	
+	@Test
+	public void testDevolverFilmeSegundaAoAlugarNoSabado() throws Exception {
+		Assume.assumeTrue(DataUtils.verificarDiaSemana(new Date(), Calendar.SATURDAY));
+		Locacao locacao = mockLocacao();
+		Boolean isSegunda = DataUtils.verificarDiaSemana(locacao.getDataRetorno(), Calendar.MONDAY);
+		assertTrue(isSegunda);
+		assertThat(locacao.getDataRetorno(), caiEm(Calendar.SUNDAY));
+		assertThat(locacao.getDataRetorno(), caiNaSegunda());
+	}
 	
 	
 	@Test
