@@ -2,6 +2,8 @@ package br.com.bbnsdevelop.servicos;
 
 import static br.com.bbnsdevelop.matchers.MatchersPropios.caiEm;
 import static br.com.bbnsdevelop.matchers.MatchersPropios.caiNaSegunda;
+import static br.com.bbnsdevelop.matchers.MatchersPropios.ehHoje;
+import static br.com.bbnsdevelop.matchers.MatchersPropios.ehHojeComDiferencaDias;
 import static br.com.bbnsdevelop.utils.DataUtils.formatDateToDDMMYYY;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -86,6 +88,7 @@ public class LocacaoServiceTest {
 
 	@Test
 	public void testeLocacao() throws Exception {
+		Assume.assumeFalse(DataUtils.verificarDiaSemana(new Date(), Calendar.SUNDAY));
 		Locacao response = mockLocacao();
 		error.checkThat(response, not(equalTo(null)));
 		error.checkThat(response.getValor(), not(equalTo(0.0)));
@@ -93,6 +96,10 @@ public class LocacaoServiceTest {
 		error.checkThat("Falso", formatDateToDDMMYYY(response.getDataRetorno()), not(equalTo(null)));
 		error.checkThat(response.getUsuario().getNome(), not(equalTo(null)));
 
+		error.checkThat(response.getDataLocacao(), ehHoje());
+		error.checkThat(response.getDataLocacao(), ehHojeComDiferencaDias(1));
+		
+		
 		/*
 		 * error.checkThat("Falso",formatDateToDDMMYYY(response.getDataRetorno()) ,
 		 * not(equalTo(formatDateToDDMMYYY(response.getDataRetorno()))));
