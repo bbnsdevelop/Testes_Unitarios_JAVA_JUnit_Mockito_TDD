@@ -254,7 +254,7 @@ public class LocacaoServiceTest {
 	private Locacao mockLocacao() throws Exception {
 
 		Usuario usuario = UsuarioBuilder.newInstance().nome("usuario 1").get();
-		Filme filme = new Filme("A fulga das galinhas", 1, 5.7);
+		Filme filme = Filme.builder().nome("").estoque(1).precoLocacao(5.7).build();				
 		Filme filme2 = new Filme("A fulga das galinhas", 1, 5.7);
 		List<Filme> filmes = Arrays.asList(filme, filme2);
 
