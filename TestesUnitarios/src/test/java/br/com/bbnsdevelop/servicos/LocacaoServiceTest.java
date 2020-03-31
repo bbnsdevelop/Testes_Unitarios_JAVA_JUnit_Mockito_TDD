@@ -1,5 +1,7 @@
 package br.com.bbnsdevelop.servicos;
 
+import static br.com.bbnsdevelop.builders.FilmeBuilder.newInstance;
+import static br.com.bbnsdevelop.builders.UsuarioBuilder.newInstance;
 import static br.com.bbnsdevelop.matchers.MatchersPropios.caiEm;
 import static br.com.bbnsdevelop.matchers.MatchersPropios.caiNaSegunda;
 import static br.com.bbnsdevelop.matchers.MatchersPropios.ehHoje;
@@ -26,11 +28,11 @@ import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
 
+import br.com.bbnsdevelop.builders.FilmeBuilder;
 import br.com.bbnsdevelop.entidades.Filme;
 import br.com.bbnsdevelop.entidades.Locacao;
 import br.com.bbnsdevelop.entidades.Usuario;
 import br.com.bbnsdevelop.exceptions.LocadoraException;
-import br.com.bbnsdevelop.matchers.MatchersPropios;
 import br.com.bbnsdevelop.utils.DataUtils;
 
 public class LocacaoServiceTest {
@@ -110,7 +112,7 @@ public class LocacaoServiceTest {
 
 	@Test
 	public void descontoAluguelFilmeTresUnidades() throws Exception {
-		Filme filme = new Filme("A fulga das galinhas", 1, 5.7);
+		Filme filme = newInstance("A fulga das galinhas", 1, 5.7).get();
 		Filme filme2 = new Filme("A fulga das galinhas", 1, 5.7);
 		Filme filme3 = new Filme("A fulga das galinhas", 1, 5.7);
 		Double valor =  filme3.getPrecoLocacao() - (filme3.getPrecoLocacao() * 25 / 100);
@@ -252,7 +254,7 @@ public class LocacaoServiceTest {
 
 	private Locacao mockLocacao() throws Exception {
 
-		Usuario usuario = new Usuario("Bruno");
+		Usuario usuario = newInstance("usuario 1").get();
 		Filme filme = new Filme("A fulga das galinhas", 1, 5.7);
 		Filme filme2 = new Filme("A fulga das galinhas", 1, 5.7);
 		List<Filme> filmes = Arrays.asList(filme, filme2);
@@ -262,14 +264,14 @@ public class LocacaoServiceTest {
 	}
 
 	private Locacao mockLocacaoFilmeComDesconto(List<Filme> filmes) throws Exception {
-		Usuario usuario = new Usuario("Bruno");		
+		Usuario usuario = newInstance("usuario 1").get();		
 		return locacaoService.alugarFilme(usuario, filmes);
 
 	}
 
 	private Locacao mockLocacaoFilmeSemEstoque(Integer estoque) throws Exception {
 
-		Usuario usuario = new Usuario("Bruno");
+		Usuario usuario = newInstance("usuario 1").get();
 		Filme filme = new Filme("A fulga das galinhas", estoque, 5.7);
 		List<Filme> filmes = Arrays.asList(filme);
 
@@ -288,7 +290,7 @@ public class LocacaoServiceTest {
 	}
 
 	private Locacao mockLocacaoFilmeNulo() throws Exception {
-		Usuario usuario = new Usuario("Bruno");
+		Usuario usuario = newInstance("usuario 1").get();
 		List<Filme> filmes = new ArrayList<Filme>();
 
 		return locacaoService.alugarFilme(usuario, filmes);
