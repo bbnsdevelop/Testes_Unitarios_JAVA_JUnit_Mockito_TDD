@@ -10,11 +10,15 @@ public class UsuarioBuilder {
 	private UsuarioBuilder() {
 		
 	}
-	public static UsuarioBuilder newInstance(String user) {
+	public static UsuarioBuilder newInstance() {
 		UsuarioBuilder builder = new UsuarioBuilder();
 		builder.usuario = new Usuario();
-		builder.usuario.setNome(user);
 		return builder;
+	}
+	
+	public UsuarioBuilder nome(String nome) {
+		this.usuario.setNome(nome);
+		return this;
 	}
 	
 	public Usuario get() {

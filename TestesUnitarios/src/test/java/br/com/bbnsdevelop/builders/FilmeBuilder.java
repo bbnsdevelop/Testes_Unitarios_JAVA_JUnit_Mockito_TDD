@@ -10,13 +10,24 @@ public class FilmeBuilder {
 		
 	}
 	
-	public static FilmeBuilder newInstance(String nome, Integer estoque, Double precoLocacao) {
+	public static FilmeBuilder newInstance() {
 		FilmeBuilder builder = new FilmeBuilder();
 		builder.filme = new Filme();
-		builder.filme.setNome(nome);
-		builder.filme.setEstoque(estoque);
-		builder.filme.setPrecoLocacao(precoLocacao);
 		return builder;		
+	}
+	
+	public FilmeBuilder nome(String nome) {
+		filme.setNome(nome);
+		return this;
+	}
+	
+	public FilmeBuilder estoque(Integer estoque) {
+		filme.setEstoque(estoque);
+		return this;
+	}
+	public FilmeBuilder precoLocacao(Double precoLocacao) {
+		filme.setPrecoLocacao(precoLocacao);
+		return this;
 	}
 	
 	public Filme get() {

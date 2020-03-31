@@ -1,6 +1,5 @@
 package br.com.bbnsdevelop.servicos;
 
-import static br.com.bbnsdevelop.builders.UsuarioBuilder.newInstance;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -16,6 +15,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
+import br.com.bbnsdevelop.builders.UsuarioBuilder;
 import br.com.bbnsdevelop.entidades.Filme;
 import br.com.bbnsdevelop.entidades.Locacao;
 import br.com.bbnsdevelop.entidades.Usuario;
@@ -52,7 +52,7 @@ public class CalculoValorLocacaoTest {
 	}
 
 	private Locacao mockLocacaoFilmeComDesconto() throws Exception {
-		Usuario usuario = newInstance("usuario 1").get();
+		Usuario usuario = UsuarioBuilder.newInstance().nome("usuario 1").get();
 		return locacaoService.alugarFilme(usuario, filmes);
 
 	}
